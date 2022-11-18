@@ -31,14 +31,22 @@ function  onImageClick(event) {
     };
     
     const img = event.target;
-    console.log(img);
     const imgUrl = img.getAttribute('data-source');
 
     const instance = basicLightbox.create(`
     <img src="${imgUrl}" width="800" height="600">
 `);
 
-instance.show();
+  instance.show();
+
+  let visible = instance.visible();
+
+  document.addEventListener('keydown', (event) => {
+    if (event.code === "Escape" && visible) {
+      visible = false;
+      instance.close();
+    }
+  });
 
 };
 
